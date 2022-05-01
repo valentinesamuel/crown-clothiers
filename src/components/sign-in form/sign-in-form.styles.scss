@@ -1,0 +1,19 @@
+.sign-up-container{
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+
+      h2{
+          margin-top: 10px 0;  
+      }
+}
+
+
+// .signin{
+//     margin-right: 5%;
+// }
+
+.buttons-container{
+    display: flex;
+    justify-content: space-between;
+}
