@@ -5,14 +5,18 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
-import { store } from "./store/store";
+import { store,persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+{/* replace null with a component that the app will render while it is trying to rehydrate the last state */}
+      <PersistGate persistor={persistor} loading={null}>
+        <BrowserRouter>
           <App />
-      </BrowserRouter>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
