@@ -3,7 +3,11 @@ import {
   legacy_createStore as createStore,
   applyMiddleware,
 } from "redux";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
+
+import createSagaMiddleware from "redux-saga";
+import { rootSaga } from "./root-saga";
+
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
@@ -13,12 +17,14 @@ import { rootReducer } from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
+const sagaMiddleWare = createSagaMiddleware()
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // filter based on the truthiness or falsness of the condition
-const middleWares = [process.env.NODE_ENV === "development" && logger, thunk].filter(
+const middleWares = [process.env.NODE_ENV === "development" && logger, sagaMiddleWare].filter(
   Boolean
 );
 
@@ -37,5 +43,5 @@ export const store = createStore(
   undefined,
   composedEnhancers
 );
-
+sagaMiddleWare.run(rootSaga)
 export const persistor = persistStore(store);
