@@ -10,8 +10,9 @@ import { rootSaga } from "./root-saga";
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import logger from "redux-logger";
-// import {loggerMiddleWare} from './middleware/logger' => You can also use your own middleware logger
+// import logger from "redux-logger"; => our own logger
+import {loggerMiddleWare} from './middleware/logger'
+ // => You can also use your own middleware logger
 import { rootReducer } from "./root-reducer";
 
 const persistConfig = {
@@ -24,7 +25,7 @@ const sagaMiddleWare = createSagaMiddleware()
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // filter based on the truthiness or falsness of the condition
-const middleWares = [process.env.NODE_ENV === "development" && logger, sagaMiddleWare].filter(
+const middleWares = [process.env.NODE_ENV === "development" && loggerMiddleWare, sagaMiddleWare].filter(
   Boolean
 );
 
