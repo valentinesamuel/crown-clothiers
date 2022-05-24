@@ -7,6 +7,8 @@ import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { store,persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import {stripePromise} from './utils/stripe/stripe.utils'
+import { Elements } from "@stripe/react-stripe-js";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +16,9 @@ ReactDOM.render(
 {/* replace null with a component that the app will render while it is trying to rehydrate the last state */}
       <PersistGate persistor={persistor} loading={null}>
         <BrowserRouter>
+          <Elements stripe={stripePromise}>
           <App />
+          </Elements>
         </BrowserRouter>
       </PersistGate>
     </Provider>
