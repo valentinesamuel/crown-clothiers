@@ -10,7 +10,7 @@ const Shop = () => {
 
   useEffect(() => {
     dispatch(fetchCategoriesStartAsync());
-  }, []);
+  }, [dispatch]);
   return (
     <Routes>
       <Route index element={<CategoriesPreview />} />

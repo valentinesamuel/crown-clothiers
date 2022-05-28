@@ -24,7 +24,7 @@ function App() {
       dispatch(setCurrentUser(user));
     });
     return unSubscribe;
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
